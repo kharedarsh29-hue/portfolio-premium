@@ -170,7 +170,7 @@ function PortfolioEditor() {
   const s = data.sections.portfolio
 
   return (
-    <SectionPanel section="Portfolio">
+    <SectionPanel section="Portfoluio">
       <Field label="Label" value={s.label} onChange={(v) => dispatch({ type: "UPDATE_SECTION", sectionId: "portfolio", data: { label: v } })} />
       <Field label="Heading" value={s.heading} onChange={(v) => dispatch({ type: "UPDATE_SECTION", sectionId: "portfolio", data: { heading: v } })} multiline />
       <Field label="Gradient Text" value={s.headingGradient} onChange={(v) => dispatch({ type: "UPDATE_SECTION", sectionId: "portfolio", data: { headingGradient: v } })} />

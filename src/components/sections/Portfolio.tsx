@@ -144,7 +144,7 @@ export default function Portfolio() {
           transition={{ duration: 0.4 }}
           className="mb-16"
         >
-          <p className="section-label">Portfolio</p>
+          <p className="section-label">Portfoluio</p>
           <h2 className="section-heading max-w-3xl">
             <span className="text-gradient">Live projects</span>
             <br />

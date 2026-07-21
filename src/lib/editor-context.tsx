@@ -118,7 +118,9 @@ function defaultWebsiteData(): WebsiteData {
         headingGradient: "scale your business",
       },
       portfolio: {
-        label: "Portfolio",
+        label: "Portfoluio",
+
+  
         heading: "Selected work\nthat speaks for itself.",
         headingGradient: "work",
       },
@@ -170,7 +172,9 @@ function defaultWebsiteData(): WebsiteData {
         ],
       },
       footer: {
-        label: "Portfolio",
+        label: "Portfoluio",
+
+  
         heading: "Let's Work Together",
         headingGradient: "great",
         description: "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",

@@ -15,11 +15,11 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Portfolio | Premium Websites, Automations & AI",
+  title: "Portfoluio | Premium Websites, Automations & AI",
   description:
     "Crafting digital experiences that grow businesses. Premium websites, Shopify stores, AI receptionists, WhatsApp & Instagram automations.",
   openGraph: {
-    title: "Portfolio | Premium Websites, Automations & AI",
+    title: "Portfoluio | Premium Websites, Automations & AI",
     description:
       "Crafting digital experiences that grow businesses. Premium websites, Shopify stores, AI receptionists, WhatsApp & Instagram automations.",
     type: "website",
