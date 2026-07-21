@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { HiMail, HiPhone, HiCheck } from "react-icons/hi";
+import { HiMail, HiPhone, HiLocationMarker, HiCheck } from "react-icons/hi";
 import SectionTitle from "@/components/ui/SectionTitle";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Button from "@/components/ui/Button";
@@ -11,14 +11,20 @@ const contactInfo = [
   {
     icon: HiMail,
     label: "Email",
-    value: "kharedarsh29@gmail.com",
-    href: "mailto:kharedarsh29@gmail.com",
+    value: "hello@nova.studio",
+    href: "mailto:hello@nova.studio",
   },
   {
     icon: HiPhone,
     label: "Phone",
-    value: "+91 9679397308",
-    href: "tel:+919679397308",
+    value: "+1 (555) 123-4567",
+    href: "tel:+15551234567",
+  },
+  {
+    icon: HiLocationMarker,
+    label: "Location",
+    value: "San Francisco, CA",
+    href: "#",
   },
 ];
 
