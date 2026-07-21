@@ -4,9 +4,8 @@ import { motion } from "framer-motion"
 import MagneticButton from "@/components/ui/MagneticButton"
 
 const methods = [
-  { label: "Email", value: "hello@example.com", href: "mailto:hello@example.com", icon: "✉️" },
-  { label: "WhatsApp", value: "+1 (555) 123-4567", href: "https://wa.me/15551234567", icon: "💬" },
-  { label: "Instagram", value: "@yourhandle", href: "https://instagram.com", icon: "📸" },
+  { label: "Email", value: "kharedarsh29@gmail.com", href: "mailto:kharedarsh29@gmail.com", icon: "✉️" },
+  { label: "Phone", value: "8787281731", href: "tel:+918787281731", icon: "📞" },
   { label: "LinkedIn", value: "Connect with me", href: "https://linkedin.com", icon: "🔗" },
 ]
 

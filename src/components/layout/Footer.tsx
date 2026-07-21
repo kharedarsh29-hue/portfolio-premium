@@ -8,15 +8,13 @@ const navLinks = [
 ]
 
 const socialLinks = [
-  { label: "Instagram", href: "#" },
   { label: "LinkedIn", href: "#" },
-  { label: "WhatsApp", href: "#" },
-  { label: "Email", href: "mailto:hello@example.com" },
+  { label: "Email", href: "mailto:kharedarsh29@gmail.com" },
 ]
 
 const contactInfo = [
-  { label: "Email", value: "hello@example.com" },
-  { label: "Phone", value: "+1 (555) 123-4567" },
+  { label: "Email", value: "kharedarsh29@gmail.com" },
+  { label: "Phone", value: "8787281731" },
   { label: "Status", value: "Available for projects" },
 ]
 
