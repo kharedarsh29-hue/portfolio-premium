@@ -1,57 +1,40 @@
-"use client";
+"use client"
 
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useMousePosition } from "@/hooks/useMousePosition";
+import { type ReactNode } from "react"
+import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 interface GlassCardProps {
-  children: React.ReactNode;
-  className?: string;
-  glowColor?: string;
-  tilt?: boolean;
+  children: ReactNode
+  className?: string
+  hover?: boolean
+  glow?: boolean
+  as?: "div" | "motion.div"
 }
 
-export default function GlassCard({ children, className = "", glowColor = "rgba(99, 102, 241, 0.15)", tilt = true }: GlassCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const mousePos = useMousePosition(cardRef);
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
+export default function GlassCard({
+  children,
+  className,
+  hover = true,
+  glow = false,
+}: GlassCardProps) {
+  const baseClasses = cn(
+    "glass rounded-2xl",
+    glow && "hover:shadow-lg hover:shadow-accent/5",
+    className
+  )
 
-  const springConfig = { damping: 25, stiffness: 200 };
-  const springRotateX = useSpring(rotateX, springConfig);
-  const springRotateY = useSpring(rotateY, springConfig);
+  if (hover) {
+    return (
+      <motion.div
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className={baseClasses}
+      >
+        {children}
+      </motion.div>
+    )
+  }
 
-  const handleMouseMove = () => {
-    if (!tilt) return;
-    rotateX.set(-mousePos.normalizedY * 5);
-    rotateY.set(mousePos.normalizedX * 5);
-  };
-
-  const handleMouseLeave = () => {
-    if (!tilt) return;
-    rotateX.set(0);
-    rotateY.set(0);
-  };
-
-  return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX: springRotateX,
-        rotateY: springRotateY,
-        transformStyle: "preserve-3d",
-      }}
-      className={`glass rounded-2xl p-8 transition-all duration-300 hover:shadow-[0_0_30px_${glowColor}] ${className}`}
-    >
-      <div
-        className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{
-          background: `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, ${glowColor}, transparent 40%)`,
-        }}
-      />
-      <div className="relative z-10">{children}</div>
-    </motion.div>
-  );
+  return <div className={baseClasses}>{children}</div>
 }

@@ -1,49 +1,29 @@
-"use client";
+"use client"
 
-import { useState, useEffect, RefObject } from "react";
+import { useState, useEffect, type RefObject } from "react"
 
-interface MousePosition {
-  x: number;
-  y: number;
-  normalizedX: number;
-  normalizedY: number;
-}
-
-export function useMousePosition(
-  ref?: RefObject<HTMLElement | null>
-): MousePosition {
-  const [position, setPosition] = useState<MousePosition>({
-    x: 0,
-    y: 0,
-    normalizedX: 0,
-    normalizedY: 0,
-  });
+export function useMousePosition(ref?: RefObject<HTMLDivElement | null>) {
+  const [pos, setPos] = useState({ x: 0, y: 0, normalizedX: 0, normalizedY: 0 })
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handler = (e: MouseEvent) => {
       if (ref?.current) {
-        const rect = ref.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        setPosition({
-          x,
-          y,
-          normalizedX: (x / rect.width) * 2 - 1,
-          normalizedY: -(y / rect.height) * 2 + 1,
-        });
-      } else {
-        setPosition({
+        const rect = ref.current.getBoundingClientRect()
+        const cx = rect.left + rect.width / 2
+        const cy = rect.top + rect.height / 2
+        setPos({
           x: e.clientX,
           y: e.clientY,
-          normalizedX: (e.clientX / window.innerWidth) * 2 - 1,
-          normalizedY: -(e.clientY / window.innerHeight) * 2 + 1,
-        });
+          normalizedX: (e.clientX - cx) / (rect.width / 2),
+          normalizedY: (e.clientY - cy) / (rect.height / 2),
+        })
+      } else {
+        setPos({ x: e.clientX, y: e.clientY, normalizedX: 0, normalizedY: 0 })
       }
-    };
+    }
+    window.addEventListener("mousemove", handler)
+    return () => window.removeEventListener("mousemove", handler)
+  }, [ref])
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [ref]);
-
-  return position;
+  return pos
 }

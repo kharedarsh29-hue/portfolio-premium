@@ -1,201 +1,142 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { HiMail, HiPhone, HiCheck } from "react-icons/hi";
-import SectionTitle from "@/components/ui/SectionTitle";
-import ScrollReveal from "@/components/animations/ScrollReveal";
-import Button from "@/components/ui/Button";
+import { motion } from "framer-motion"
+import MagneticButton from "@/components/ui/MagneticButton"
 
-const contactInfo = [
-  {
-    icon: HiMail,
-    label: "Email",
-    value: "kharedarsh29@gmail.com",
-    href: "mailto:kharedarsh29@gmail.com",
-  },
-  {
-    icon: HiPhone,
-    label: "Phone",
-    value: "+91 9679397308",
-    href: "tel:+919679397308",
-  },
-];
+const methods = [
+  { label: "Email", value: "hello@example.com", href: "mailto:hello@example.com", icon: "✉️" },
+  { label: "WhatsApp", value: "+1 (555) 123-4567", href: "https://wa.me/15551234567", icon: "💬" },
+  { label: "Instagram", value: "@yourhandle", href: "https://instagram.com", icon: "📸" },
+  { label: "LinkedIn", value: "Connect with me", href: "https://linkedin.com", icon: "🔗" },
+]
+
+const serviceOptions = [
+  "Premium Website", "Shopify Store", "WhatsApp Automation",
+  "Instagram Automation", "AI Receptionist", "Lead Generation",
+  "CRM Automation", "Other",
+]
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const validate = () => {
-    const errs: Record<string, string> = {};
-    if (!form.name.trim()) errs.name = "Name is required";
-    if (!form.email.trim()) errs.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "Invalid email address";
-    if (!form.message.trim()) errs.message = "Message is required";
-    else if (form.message.trim().length < 10) errs.message = "Message must be at least 10 characters";
-    return errs;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const errs = validate();
-    setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setSubmitting(true);
-    // Simulate sending
-    await new Promise((r) => setTimeout(r, 1500));
-    setSubmitting(false);
-    setSubmitted(true);
-    setForm({ name: "", email: "", message: "" });
-    setTimeout(() => setSubmitted(false), 5000);
-  };
-
   return (
-    <section id="contact" className="relative py-32">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/5 to-transparent pointer-events-none" />
+    <section id="contact" className="pt-32 pb-32 bg-bg-secondary overflow-hidden">
+      <div className="absolute top-0 right-0 w-[350px] h-[350px] rounded-full bg-accent/[0.04] blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          subtitle="Contact Us"
-          title="Let's Create Something Amazing"
-          description="Ready to transform your digital presence? We'd love to hear about your project."
-        />
+      <div className="container-site relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-16"
+        >
+          <p className="section-label">Contact</p>
+          <h2 className="section-heading max-w-3xl">
+            Ready to build
+            <br />
+            something <span className="text-gradient">great</span>?
+          </h2>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          <ScrollReveal direction="left" className="lg:col-span-2">
-            <div className="space-y-6">
-              {contactInfo.map((info) => (
+        <div className="grid lg:grid-cols-12 gap-16">
+          <div className="lg:col-span-5">
+            <p className="text-base text-text-secondary leading-relaxed paragraph-max heading-desc-gap mb-16">
+              Tell me about your project. I&apos;ll get back to you within 24 hours with a plan and a quote.
+            </p>
+
+            <div className="space-y-4 mb-16">
+              {methods.map((m) => (
                 <a
-                  key={info.label}
-                  href={info.href}
-                  className="flex items-center gap-4 glass rounded-xl p-5 hover:bg-white/5 transition-all duration-300 group"
+                  key={m.label}
+                  href={m.href}
+                  target={m.href.startsWith("http") ? "_blank" : undefined}
+                  rel={m.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="flex items-center gap-4 p-4 rounded-xl glass hover:border-accent/15 transition-all duration-300 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <info.icon className="text-indigo-400" size={20} />
-                  </div>
+                  <span className="text-xl">{m.icon}</span>
                   <div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wider">{info.label}</div>
-                    <div className="text-white font-medium">{info.value}</div>
+                    <p className="text-xs text-text-muted">{m.label}</p>
+                    <p className="text-sm text-text-primary group-hover:text-accent transition-colors">
+                      {m.value}
+                    </p>
                   </div>
+                  <span className="ml-auto text-sm text-text-muted group-hover:text-accent transition-colors">→</span>
                 </a>
               ))}
-
-              <div className="glass rounded-xl p-6 mt-8">
-                <h4 className="font-semibold text-white mb-2">Working Hours</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between text-gray-400">
-                    <span>Mon - Fri</span>
-                    <span className="text-white">9:00 AM - 6:00 PM</span>
-                  </div>
-                  <div className="flex justify-between text-gray-400">
-                    <span>Saturday</span>
-                    <span className="text-white">10:00 AM - 4:00 PM</span>
-                  </div>
-                  <div className="flex justify-between text-gray-400">
-                    <span>Sunday</span>
-                    <span className="text-gray-500">Closed</span>
-                  </div>
-                </div>
-              </div>
             </div>
-          </ScrollReveal>
 
-          <ScrollReveal direction="right" className="lg:col-span-3">
-            <motion.form
-              onSubmit={handleSubmit}
-              className="glass rounded-3xl p-8 md:p-12 space-y-6"
-            >
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
-                >
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center mx-auto mb-6">
-                    <HiCheck size={32} className="text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                  <p className="text-gray-400">We'll get back to you within 24 hours.</p>
-                </motion.div>
-              ) : (
-                <>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Your Name
-                      </label>
-                      <input
-                        type="text"
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-1 transition-all ${
-                          errors.name
-                            ? "border-red-500/50 focus:ring-red-500/20"
-                            : "border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/20"
-                        }`}
-                        placeholder="John Doe"
-                      />
-                      {errors.name && (
-                        <p className="text-red-400 text-xs mt-1">{errors.name}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Your Email
-                      </label>
-                      <input
-                        type="email"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-1 transition-all ${
-                          errors.email
-                            ? "border-red-500/50 focus:ring-red-500/20"
-                            : "border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/20"
-                        }`}
-                        placeholder="john@example.com"
-                      />
-                      {errors.email && (
-                        <p className="text-red-400 text-xs mt-1">{errors.email}</p>
-                      )}
-                    </div>
+            <MagneticButton size="lg" href="https://calendly.com">
+              Book a Free Consultation
+            </MagneticButton>
+          </div>
+
+          <div className="lg:col-span-6 lg:col-start-7">
+            <div className="glass rounded-3xl p-10">
+              <h3 className="text-lg font-heading font-semibold text-text-primary mb-8">
+                Send a Message
+              </h3>
+              <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs text-text-muted mb-2">Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-border-subtle text-text-primary placeholder-text-muted focus:outline-none focus:border-accent/40 transition-colors text-sm"
+                      placeholder="Your name"
+                    />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Your Message
-                    </label>
-                    <textarea
-                      rows={5}
-                      value={form.message}
-                      onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-1 transition-all resize-none ${
-                        errors.message
-                          ? "border-red-500/50 focus:ring-red-500/20"
-                          : "border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/20"
-                      }`}
-                      placeholder="Tell us about your project..."
+                    <label className="block text-xs text-text-muted mb-2">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-border-subtle text-text-primary placeholder-text-muted focus:outline-none focus:border-accent/40 transition-colors text-sm"
+                      placeholder="your@email.com"
                     />
-                    {errors.message && (
-                      <p className="text-red-400 text-xs mt-1">{errors.message}</p>
-                    )}
                   </div>
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="lg"
-                    className="w-full"
-                    disabled={submitting}
+                </div>
+
+                <div>
+                  <label className="block text-xs text-text-muted mb-2">Service</label>
+                  <select
+                    name="service"
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-border-subtle text-text-primary focus:outline-none focus:border-accent/40 transition-colors text-sm"
                   >
-                    {submitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </>
-              )}
-            </motion.form>
-          </ScrollReveal>
+                    <option value="" className="bg-bg-card">Select a service</option>
+                    {serviceOptions.map((s) => (
+                      <option key={s} value={s.toLowerCase().replace(/\s+/g, "-")} className="bg-bg-card">
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs text-text-muted mb-2">Message</label>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-border-subtle text-text-primary placeholder-text-muted focus:outline-none focus:border-accent/40 transition-colors text-sm resize-none"
+                    placeholder="Tell me about your project..."
+                  />
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  type="submit"
+                  className="w-full py-4 rounded-xl bg-accent text-white font-medium hover:bg-accent-light transition-colors text-sm h-14 flex items-center justify-center"
+                >
+                  Send Message
+                </motion.button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

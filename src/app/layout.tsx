@@ -1,56 +1,45 @@
-import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next"
+import { Inter, Plus_Jakarta_Sans } from "next/font/google"
+import "./globals.css"
 
 const inter = Inter({
-  variable: "--font-inter",
   subsets: ["latin"],
+  variable: "--font-body",
   display: "swap",
-});
+})
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
+  variable: "--font-heading",
   display: "swap",
-});
+})
 
 export const metadata: Metadata = {
-  title: "NOVA | Digital 3D Experience Agency",
+  title: "Portfolio | Premium Websites, Automations & AI",
   description:
-    "We craft immersive 3D web experiences that captivate audiences, drive engagement, and transform how brands connect with their users.",
-  keywords: ["3D web", "web development", "UI/UX design", "Three.js", "digital agency"],
-  icons: {
-    icon: "/favicon.svg",
-  },
+    "Crafting digital experiences that grow businesses. Premium websites, Shopify stores, AI receptionists, WhatsApp & Instagram automations.",
   openGraph: {
-    title: "NOVA | Digital 3D Experience Agency",
+    title: "Portfolio | Premium Websites, Automations & AI",
     description:
-      "We craft immersive 3D web experiences that captivate audiences, drive engagement, and transform how brands connect with their users.",
+      "Crafting digital experiences that grow businesses. Premium websites, Shopify stores, AI receptionists, WhatsApp & Instagram automations.",
     type: "website",
-    locale: "en_US",
-    siteName: "NOVA",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "NOVA | Digital 3D Experience Agency",
-    description:
-      "We craft immersive 3D web experiences that captivate audiences, drive engagement, and transform how brands connect with their users.",
-  },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${outfit.variable}`}
+      className={`${inter.variable} ${jakarta.variable} dark`}
+      suppressHydrationWarning
     >
-      <body className="min-h-screen bg-background text-foreground antialiased noise-bg">
+      <body className="min-h-screen bg-bg-primary text-text-primary font-body antialiased">
         {children}
       </body>
     </html>
-  );
+  )
 }

@@ -1,87 +1,117 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { HiChartBar, HiCube, HiLightningBolt, HiUsers } from "react-icons/hi";
-import SectionTitle from "@/components/ui/SectionTitle";
-import ScrollReveal from "@/components/animations/ScrollReveal";
-import AnimatedCounter from "@/components/animations/AnimatedCounter";
-import { stats } from "@/lib/data";
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
 
-const pillars = [
-  {
-    icon: HiCube,
-    title: "3D Innovation",
-    description: "Pushing the boundaries of web graphics with cutting-edge Three.js and WebGL technology.",
-    gradient: "from-indigo-500/20 to-purple-500/20",
-    iconColor: "text-indigo-400",
-  },
-  {
-    icon: HiLightningBolt,
-    title: "Performance First",
-    description: "Every line of code optimized for speed. We deliver buttery-smooth experiences at 60fps.",
-    gradient: "from-purple-500/20 to-pink-500/20",
-    iconColor: "text-purple-400",
-  },
-  {
-    icon: HiUsers,
-    title: "User Centered",
-    description: "Deep research-driven design that anticipates user needs and creates intuitive journeys.",
-    gradient: "from-pink-500/20 to-cyan-500/20",
-    iconColor: "text-pink-400",
-  },
-  {
-    icon: HiChartBar,
-    title: "Data Driven",
-    description: "We measure everything. Our designs are backed by analytics and proven conversion patterns.",
-    gradient: "from-cyan-500/20 to-indigo-500/20",
-    iconColor: "text-cyan-400",
-  },
-];
+const statsData = [
+  { value: "50+", label: "Projects Delivered" },
+  { value: "35+", label: "Happy Clients" },
+  { value: "4+", label: "Years Experience" },
+  { value: "200+", label: "Automations Built" },
+]
+
+const valuesData = [
+  { number: "01", title: "Strategy First", desc: "Every project starts with understanding your business, goals, and audience before writing a single line of code." },
+  { number: "02", title: "Craft Over Speed", desc: "We don't do templates. Every pixel, interaction, and animation is intentionally designed to create impact." },
+  { number: "03", title: "Results Driven", desc: "Beautiful is good. Profitable is better. Every solution we build is engineered to grow your business." },
+]
 
 export default function About() {
-  return (
-    <section id="about" className="relative py-32 section-gradient">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          subtitle="About Us"
-          title="Where Vision Meets Technology"
-          description="We're a team of designers, engineers, and dreamers who believe the web should be more than flat pages. We create immersive 3D experiences that redefine digital interaction."
-        />
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-80px" })
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
-          {stats.map((stat, i) => (
-            <ScrollReveal key={stat.label} delay={i * 0.1}>
-              <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="glass rounded-2xl p-6 text-center group cursor-default"
-              >
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                </div>
-                <div className="text-gray-400 text-sm">{stat.label}</div>
-              </motion.div>
-            </ScrollReveal>
+  return (
+    <section id="about" className="pt-32 pb-32 bg-bg-primary">
+      <div className="container-site">
+        <div className="grid lg:grid-cols-12 gap-8 mb-16">
+          <div className="lg:col-span-5">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="section-label"
+            >
+              About
+            </motion.p>
+            <h2 className="section-heading">
+              Building digital
+              <br />
+              <span className="text-gradient">products</span> that
+              <br />
+              drive growth.
+            </h2>
+          </div>
+          <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-center gap-8">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="text-base text-text-secondary leading-relaxed paragraph-max"
+            >
+              I help businesses bridge the gap between stunning design and intelligent automation. Whether it&apos;s a premium website, an AI receptionist, or a fully automated sales pipeline — every project is built with the same philosophy: craftsmanship that converts.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="text-sm text-text-muted leading-relaxed paragraph-max"
+            >
+              From Shopify stores to WhatsApp bots, I combine design thinking with technical execution to deliver solutions that feel premium and perform relentlessly.
+            </motion.p>
+          </div>
+        </div>
+
+        <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+          {statsData.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.08 * i }}
+              className="text-left flex flex-col items-start"
+            >
+              <div className="text-5xl md:text-6xl font-heading font-bold text-text-primary mb-4 leading-none">
+                {inView && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 + 0.08 * i }}
+                  >
+                    {stat.value}
+                  </motion.span>
+                )}
+              </div>
+              <p className="text-sm text-text-muted">{stat.label}</p>
+            </motion.div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {pillars.map((pillar, i) => (
-            <ScrollReveal key={pillar.title} delay={i * 0.1} direction={i % 2 === 0 ? "left" : "right"}>
-              <motion.div
-                whileHover={{ y: -8 }}
-                className={`glass rounded-2xl p-8 group cursor-default relative overflow-hidden`}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${pillar.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                <div className="relative z-10">
-                  <pillar.icon className={`text-3xl mb-4 ${pillar.iconColor}`} />
-                  <h3 className="text-xl font-semibold text-white mb-3">{pillar.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{pillar.description}</p>
-                </div>
-              </motion.div>
-            </ScrollReveal>
+        <div className="grid md:grid-cols-3 gap-8">
+          {valuesData.map((v, i) => (
+            <motion.div
+              key={v.number}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.4, delay: 0.08 * i }}
+              className="p-10 rounded-3xl bg-bg-card border border-border-subtle hover:border-border-default transition-colors duration-500"
+            >
+              <span className="text-4xl font-heading font-bold text-accent/20 leading-none">
+                {v.number}
+              </span>
+              <h3 className="mt-6 text-xl font-heading font-semibold text-text-primary">
+                {v.title}
+              </h3>
+              <p className="mt-4 text-sm text-text-secondary leading-relaxed">
+                {v.desc}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }
