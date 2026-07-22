@@ -45,7 +45,7 @@ export default function Footer() {
           <div className="col-span-12 md:col-span-5">
             <a href="#hero" className="inline-block text-3xl font-heading font-bold tracking-tight mb-6">
               <span className="text-gradient">P</span>
-              <span className="text-white/70">ortfoluio</span>
+              <span className="text-white/70">ortfolio</span>
             </a>
             <p className="text-sm text-text-muted leading-relaxed paragraph-max mb-8">
               Premium websites, AI receptionists, and smart automations
